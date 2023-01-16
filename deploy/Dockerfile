@@ -45,6 +45,8 @@ FROM debian:bullseye-slim AS certs
 RUN apt update && apt install -y ca-certificates
 
 FROM scratch
+WORKDIR /workspace
+
 # Create kaniko directory with world write permission to allow non root run
 # use musl busybox since it's staticly compiled
 RUN --mount=from=busybox:musl,dst=/usr/ ["busybox", "sh", "-c", "mkdir -p /kaniko && chmod 777 /kaniko"] 
